@@ -2,147 +2,198 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Exam Dashboard</title>
 
 <style>
 * {
     box-sizing: border-box;
     font-family: "Segoe UI", Tahoma, sans-serif;
+    -webkit-tap-highlight-color: transparent; /* منع الوميض الأزرق عند الضغط في الآيباد */
 }
 
 body {
     margin: 0;
-    background: #0f0f0f;
+    background: #0f0f11; /* درجة الأسود المعتمة العميقة للخلفية الأساسية */
     color: #e0e0e0;
 }
 
 /* ===== Top Bar ===== */
 .top-bar {
-    height: 60px;
-    background: #1a1a1a;
+    height: 65px; 
+    background: #19191b; 
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
-    border-bottom: 1px solid #2a2a2a;
+    padding: 0 16px;
+    border-bottom: 1px solid #222224;
 }
 
 .user-info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 14px; 
+    cursor: pointer; /* جعل منطقة الصورة الشخصية قابلة للضغط */
+    min-width: 0; /* يسمح للعناصر الداخلية بالتقلص لعمل نقاط القطع بشكل سليم */
 }
 
 .avatar {
-    width: 34px;
-    height: 34px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    background: #3a3a3a;
+    background: #3a3a3c; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    flex-shrink: 0; /* منع الصورة من الانضغاط */
+}
+
+.avatar-svg {
+    width: 100%;
+    height: 100%;
+    fill: #b1b1b6; 
 }
 
 .user-text {
     display: flex;
     flex-direction: column;
-    font-size: 13px;
+    justify-content: center;
+    gap: 1px; /* المسافة المحددة بين كلمة Welcome والاسم */
+    min-width: 0; /* تفعيل ميزة إخفاء النص الزائد داخل الفليكس بوكس */
 }
 
 .user-text span:first-child {
-    color: #9a9a9a;
-    font-size: 12px;
+    color: #7c7c80; 
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* تعديل عرض الاسم ليقطع تلقائياً بنقاط إذا كان طويلاً */
+.user-text span:last-child {
+    color: #ffffff; 
+    font-size: 16px; 
+    font-weight: bold; 
+    letter-spacing: 0.3px;
+    white-space: nowrap;      /* منع الاسم من النزول لسطر جديد */
+    overflow: hidden;         /* إخفاء الجزء الزائد من الاسم */
+    text-overflow: ellipsis;  /* إضافة النقاط الثلاثية في النهاية (...) */
+    max-width: 190px;         /* العرض الأقصى المسموح به للاسم في الهواتف */
 }
 
 .icons {
     display: flex;
     align-items: center;
-    gap: 16px;
-    color: #bdbdbd;
+    gap: 20px; 
+    flex-shrink: 0;
 }
 
-.icon {
-    width: 18px;
-    height: 18px;
-    stroke: #bdbdbd;
-    stroke-width: 2;
+.icon-svg {
+    width: 22px;
+    height: 22px;
     fill: none;
+    stroke: #8e8e93; 
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
     cursor: pointer;
 }
 
 /* ===== Tabs ===== */
 .tabs {
     display: flex;
-    justify-content: center;
-    gap: 120px;
-    background: #000;
-    border-bottom: 1px solid #1f1f1f;
+    background: #000000; 
+    border-bottom: 1px solid #1c1c1e;
+    padding: 0;
 }
 
 .tab {
-    padding: 14px 0;
-    color: #9a9a9a;
-    font-size: 14px;
+    flex: 1;
+    text-align: center;
+    padding: 16px 0;
+    color: #7c7c80; 
+    font-size: 15px; 
+    font-weight: 600; 
     position: relative;
     cursor: pointer;
 }
 
 .tab.active {
-    color: #4da3ff;
+    color: #ffffff; 
+}
+
+.tab::after {
+    content: "";
+    position: absolute;
+    bottom: -1px; 
+    left: 0;
+    width: 100%;
+    height: 3px; 
+    background: transparent;
 }
 
 .tab.active::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: #4da3ff;
+    background: #005bb5; 
 }
 
 /* ===== Content ===== */
 .content {
-    padding: 30px 40px;
+    padding: 20px 16px;
+    max-width: 768px; 
+    margin: 0 auto;  
 }
 
 .header-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     font-size: 14px;
-    color: #bdbdbd;
+    color: #7c7c80; 
 }
 
 .toggle {
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 }
 
 .toggle-switch {
-    width: 42px;
-    height: 22px;
-    background: #3a3a3a;
-    border-radius: 11px;
+    width: 46px;
+    height: 24px;
+    background: #3a3a3c;
+    border-radius: 12px;
     position: relative;
+    transition: background-color 0.25s ease;
 }
 
 .toggle-switch::after {
     content: "";
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     background: #fff;
     border-radius: 50%;
     position: absolute;
     top: 2px;
-    right: 2px;
+    left: 2px;
+    transition: left 0.25s ease;
+}
+
+.toggle.active .toggle-switch {
+    background: #34c759; 
+}
+
+.toggle.active .toggle-switch::after {
+    left: 24px; 
 }
 
 /* ===== Exam Card ===== */
 .exam-card {
-    background: #1c1c1c;
-    border-radius: 10px;
-    padding: 20px;
-    border: 1px solid #2c2c2c;
+    background: #18181a; 
+    border-radius: 14px;
+    padding: 22px 20px;
+    border: 1px solid #242426;
     position: relative;
     overflow: hidden;
 }
@@ -154,23 +205,29 @@ body {
     left: 0;
     width: 4px;
     height: 100%;
-    background: #4da3ff;
+    background: #005bb5; 
 }
 
 .exam-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    align-items: flex-start; 
+    padding-bottom: 16px; 
+    border-bottom: 1px solid #262628; 
+    margin-bottom: 18px; 
 }
 
 .exam-title {
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    max-width: 70%;
+    line-height: 1.4;
 }
 
 .exam-date {
     font-size: 13px;
-    color: #b0b0b0;
+    color: #7c7c80;
     text-align: right;
     line-height: 1.4;
 }
@@ -178,121 +235,380 @@ body {
 .exam-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    row-gap: 12px;
+    row-gap: 16px;
     font-size: 14px;
-    color: #bdbdbd;
+    color: #7c7c80; 
+    padding-bottom: 4px; 
 }
 
 .exam-details .value {
-    color: #ffffff;
+    color: #ffffff; 
     justify-self: end;
+    font-weight: 500;
 }
 
 .exam-details .value.status-ended {
-    color: #4da3ff;
+    color: #005bb5; 
 }
 
+/* ===== View Score Button ===== */
 .view-score {
-    margin-top: 20px;
+    margin-top: 22px;
     width: 100%;
-    padding: 12px;
+    padding: 13px; 
     background: transparent;
-    border: 1px solid #4da3ff;
-    border-radius: 8px;
-    color: #4da3ff;
-    font-size: 14px;
+    border: 1px solid #2c2c2e; 
+    border-radius: 10px;
+    color: #005bb5; 
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
 }
 
-.view-score:hover {
-    background: rgba(77, 163, 255, 0.1);
+.view-score:active {
+    background: rgba(0, 91, 181, 0.05);
 }
 
 .hidden {
     display: none !important;
 }
 
-/* ===== Modal (Popup) ===== */
+/* ===== شاشة مؤشر التحميل ===== */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    transition: opacity 0.15s ease;
+}
+
+.spinner-box {
+    width: 80px;
+    height: 80px;
+    background: rgba(30, 30, 32, 0.85); 
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ios-spinner {
+    width: 44px;
+    height: 44px;
+}
+
+.ios-spinner line {
+    stroke: #8a8a8f; 
+    stroke-width: 4px;
+    stroke-linecap: round;
+}
+
+.spinner-animated {
+    transform-origin: center;
+    animation: spinner-rotate 1s steps(8) infinite; 
+}
+
+@keyframes spinner-rotate {
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== Modal (Popup الإشعارات) ===== */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* خلفية مظللة */
+    background: rgba(0, 0, 0, 0.65);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 2000;
+    padding: 24px; 
 }
 
 .modal-box {
-    background: #2a2a2a;
-    border: 1px solid #3a3a3a;
-    border-radius: 8px;
-    width: 340px;
-    padding: 35px 25px 20px;
+    background: #2a2a2e; 
+    border: 1px solid #3a3a3f;
+    border-radius: 12px; 
+    width: 100%;
+    max-width: 320px;
+    padding: 38px 16px 16px;
     text-align: center;
     position: relative;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .modal-icon {
     position: absolute;
-    top: -25px; /* رفع الأيقونة للأعلى */
+    top: -28px;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 50px;
-    background: #2b78e4;
+    width: 56px;
+    height: 56px;
+    background: #2369d1; 
     border-radius: 50%;
-    border: 3px solid #fff;
+    border: 3px solid #2a2a2e; 
+    outline: 2px solid #ffffff; 
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
-    font-family: serif;
+    font-family: "Georgia", serif;
     color: white;
 }
 
 .modal-title {
-    font-size: 15px;
-    color: #fff;
-    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 14px;
 }
 
 .modal-text {
-    font-size: 13px;
-    color: #e0e0e0;
+    font-size: 13.5px;
+    color: #e0e0e3;
     line-height: 1.6;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+    font-weight: 400;
+    text-align: center;
 }
 
 .modal-btn {
     width: 100%;
-    padding: 10px;
-    background: #2b78e4;
+    padding: 11px;
+    background: #2369d1; 
     color: white;
     border: none;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background 0.2s;
 }
 
-.modal-btn:hover {
-    background: #1f5eb5;
+/* ===== القوائم السفلية (الخلفية العامة المشتركة) ===== */
+.bottom-sheet-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1500;
+    display: flex;
+    align-items: flex-end;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.bottom-sheet-overlay.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.bottom-sheet {
+    width: 100%;
+    background: #1c1c1e;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding: 16px 16px 30px 16px;
+    transform: translateY(100%);
+    transition: transform 0.25s ease-out;
+}
+
+.bottom-sheet-overlay.open .bottom-sheet {
+    transform: translateY(0);
+}
+
+.sheet-header {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 10px;
+}
+
+.close-sheet-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+}
+
+/* ===== تخصيص قائمة الـ Filter السفلية ===== */
+.filter-header-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #2c2c2e;
+    margin-bottom: 6px;
+}
+
+.filter-header-title h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    padding: 14px 0;
+    cursor: pointer;
+}
+
+.filter-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #3a3a3c;
+    border-radius: 50%;
+    margin-right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-option.selected .filter-radio {
+    border-color: #3882ef;
+}
+
+.filter-radio::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    border-radius: 50%;
+}
+
+.filter-option.selected .filter-radio::after {
+    background: #3882ef;
+}
+
+.filter-label {
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.filter-show-btn {
+    width: 100%;
+    background: #3882ef;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 16px;
+    cursor: pointer;
+}
+
+/* ===== تخصيص قائمة الحساب السفلية (Profile Sheet) ===== */
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 4px 16px 4px;
+}
+
+.profile-user-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #2c2c2e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-avatar svg {
+    width: 100%;
+    height: 100%;
+    fill: #8e8e93;
+}
+
+.profile-info-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-info-text .welcome-lbl {
+    color: #7c7c80;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.profile-info-text .name-lbl {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.signout-btn {
+    width: 100%;
+    padding: 13px;
+    background: transparent;
+    border: 1px solid #c93b3b; 
+    border-radius: 10px;
+    color: #e54343; 
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+}
+
+@media (min-width: 1024px) {
+    .content {
+        max-width: 900px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<div id="refresh-loading" class="loading-overlay hidden">
+    <div class="spinner-box">
+        <svg class="ios-spinner spinner-animated" viewBox="0 0 64 64">
+            <g>
+                <line x1="32" y1="8" x2="32" y2="16" opacity="0.25"></line>
+                <line x1="48.97" y1="15.03" x2="43.31" y2="20.69" opacity="0.35"></line>
+                <line x1="56" y1="32" x2="48" y2="32" opacity="0.45"></line>
+                <line x1="48.97" y1="48.97" x2="43.31" y2="43.31" opacity="0.55"></line>
+                <line x1="32" y1="56" x2="32" y2="48" opacity="0.65"></line>
+                <line x1="15.03" y1="48.97" x2="20.69" y2="43.31" opacity="0.75"></line>
+                <line x1="8" y1="32" x2="16" y2="32" opacity="0.85"></line>
+                <line x1="15.03" y1="15.03" x2="20.69" y2="20.69" opacity="1"></line>
+            </g>
+        </svg>
+    </div>
+</div>
+
 <div class="top-bar">
-    <div class="user-info">
-        <div class="avatar"></div>
+    <div class="user-info" onclick="openProfileSheet()">
+        <div class="avatar">
+            <svg class="avatar-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="4.5"></circle>
+                <path d="M12 14c-4.42 0-8 2.58-8 5.75v1.25h16v-1.25c0-3.17-3.58-5.75-8-5.75z"></path>
+            </svg>
+        </div>
         <div class="user-text">
             <span>Welcome</span>
             <span>MOHAMMED HUSSAIN MOHAMMED HAKMI</span>
@@ -300,12 +616,26 @@ body {
     </div>
 
     <div class="icons">
-        ⟳
-        <svg class="icon" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="7"></circle>
-            <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
+        <svg class="icon-svg" viewBox="0 0 24 24" onclick="triggerRefresh()">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-6.73"></path>
         </svg>
-        ☰
+        <svg class="icon-svg" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        
+        <svg class="icon-svg" viewBox="0 0 24 24" style="fill: none; stroke: #8e8e93; stroke-width: 2.5;" onclick="openFilter()">
+            <line x1="2" y1="8" x2="22" y2="8"></line>
+            <circle cx="9" cy="8" r="2.5" style="fill: #8e8e93; stroke: none;"></circle>
+            <line x1="2" y1="16" x2="22" y2="16"></line>
+            <circle cx="15" cy="16" r="2.5" style="fill: #8e8e93; stroke: none;"></circle>
+        </svg>
+
+        <svg class="icon-svg" viewBox="0 0 24 24" onclick="openNotificationModal()">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
     </div>
 </div>
 
@@ -317,8 +647,8 @@ body {
 <div class="content">
     <div class="header-row">
         <div>Total Exams: <span id="exams-count">1</span></div>
-        <div class="toggle">
-            <span>Open All</span>
+        <div class="toggle" id="toggle-container" onclick="toggleSwitch()">
+            <span id="toggle-text">Open All</span>
             <div class="toggle-switch"></div>
         </div>
     </div>
@@ -328,7 +658,7 @@ body {
             <div class="exam-header">
                 <div class="exam-title">Midterm Exam 312</div>
                 <div class="exam-date">
-                    26 feb 2026<br>
+                    26 Feb 2026<br>
                     11:00 AM
                 </div>
             </div>
@@ -362,13 +692,92 @@ body {
 <div id="score-modal" class="modal-overlay hidden">
     <div class="modal-box">
         <div class="modal-icon">i</div>
-        <div class="modal-title">Notification</div>
-        <div class="modal-text">Exam Result is not published. Once your result is published, you will receive a notification.</div>
+        <div class="modal-title" id="modal-title-text">Notification</div>
+        <div class="modal-text" id="modal-body-text">Exam Result is not published. Once your result is published, you will receive a notification.</div>
         <button class="modal-btn" onclick="closeModal()">Ok</button>
     </div>
 </div>
 
+<div id="filter-overlay" class="bottom-sheet-overlay" onclick="closeFilter(event)">
+    <div class="bottom-sheet" onclick="event.stopPropagation()">
+        <div class="filter-header-title">
+            <h3>Filter</h3>
+            <button class="close-sheet-btn" onclick="closeFilter(null)">✕</button>
+        </div>
+        
+        <div class="filter-options-list">
+            <div class="filter-option" onclick="selectFilterOption(this)">
+                <div class="filter-radio"></div>
+                <span class="filter-label">All</span>
+            </div>
+            
+            <div class="filter-option" onclick="selectFilterOption(this)">
+                <div class="filter-radio"></div>
+                <span class="filter-label">Current Exams</span>
+            </div>
+            
+            <div class="filter-option" onclick="selectFilterOption(this)">
+                <div class="filter-radio"></div>
+                <span class="filter-label">Future Exams</span>
+            </div>
+            
+            <div class="filter-option selected" onclick="selectFilterOption(this)">
+                <div class="filter-radio"></div>
+                <span class="filter-label">Previous Exams</span>
+            </div>
+        </div>
+        
+        <button class="filter-show-btn" onclick="closeFilter(null)">Show</button>
+    </div>
+</div>
+
+<div id="profile-sheet-overlay" class="bottom-sheet-overlay" onclick="closeProfileSheet(event)">
+    <div class="bottom-sheet" onclick="event.stopPropagation()">
+        <div class="sheet-header">
+            <button class="close-sheet-btn" onclick="closeProfileSheet(null)">✕</button>
+        </div>
+        
+        <div class="profile-content">
+            <div class="profile-user-row">
+                <div class="profile-avatar">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="8" r="4.5"></circle>
+                        <path d="M12 14c-4.42 0-8 2.58-8 5.75v1.25h16v-1.25c0-3.17-3.58-5.75-8-5.75z"></path>
+                    </svg>
+                </div>
+                <div class="profile-info-text">
+                    <span class="welcome-lbl">Welcome</span>
+                    <span class="name-lbl">MOHAMMED HUSSAIN MOHAMMED HAKMI</span>
+                </div>
+            </div>
+            
+            <button class="signout-btn" onclick="closeProfileSheet(null)">Sign out</button>
+        </div>
+    </div>
+</div>
+
 <script>
+    function triggerRefresh() {
+        const loading = document.getElementById('refresh-loading');
+        loading.classList.remove('hidden');
+        setTimeout(() => {
+            loading.classList.add('hidden');
+        }, 1000); 
+    }
+
+    function toggleSwitch() {
+        const toggleContainer = document.getElementById('toggle-container');
+        const toggleText = document.getElementById('toggle-text');
+        
+        if (toggleContainer.classList.contains('active')) {
+            toggleContainer.classList.remove('active');
+            toggleText.textContent = 'Open All';
+        } else {
+            toggleContainer.classList.add('active');
+            toggleText.textContent = 'Close All';
+        }
+    }
+
     function switchTab(type) {
         const tabSum = document.getElementById('tab-sum');
         const tabForm = document.getElementById('tab-form');
@@ -391,13 +800,48 @@ body {
         }
     }
 
-    // دوال النافذة المنبثقة
     function openModal() {
+        document.getElementById('modal-title-text').textContent = 'Notification';
+        document.getElementById('modal-body-text').textContent = 'Exam Result is not published. Once your result is published, you will receive a notification.';
+        document.getElementById('score-modal').classList.remove('hidden');
+    }
+
+    function openNotificationModal() {
+        document.getElementById('modal-title-text').textContent = 'Notification';
+        document.getElementById('modal-body-text').innerHTML = 'The QQ app was first launched at 12 Oct 2025 06:07:15 PM, with Device ID:<br>E03C096A-AE8E-4FF7-<br>A7A3-5F3B3C911639 and Timezone:';
         document.getElementById('score-modal').classList.remove('hidden');
     }
 
     function closeModal() {
         document.getElementById('score-modal').classList.add('hidden');
+    }
+
+    /* دوال التحكم بالـ Filter */
+    function openFilter() {
+        document.getElementById('filter-overlay').classList.add('open');
+    }
+
+    function closeFilter(event) {
+        if (!event || event.target === document.getElementById('filter-overlay')) {
+            document.getElementById('filter-overlay').classList.remove('open');
+        }
+    }
+
+    function selectFilterOption(element) {
+        const options = document.querySelectorAll('.filter-option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        element.classList.add('selected');
+    }
+
+    /* دوال التحكم بقائمة الحساب الشخصي (Profile Sheet) */
+    function openProfileSheet() {
+        document.getElementById('profile-sheet-overlay').classList.add('open');
+    }
+
+    function closeProfileSheet(event) {
+        if (!event || event.target === document.getElementById('profile-sheet-overlay')) {
+            document.getElementById('profile-sheet-overlay').classList.remove('open');
+        }
     }
 </script>
 
