@@ -93,7 +93,7 @@ body {
     width: 22px;
     height: 22px;
     fill: none;
-    stroke: #ffffff; /* تم التعديل إلى الأبيض */
+    stroke: #ffffff; 
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -206,7 +206,7 @@ body {
     left: 0;
     width: 4px;
     height: 100%;
-    background: #005bb5; 
+    background: #2a65bf; /* تم تحديث لون الشريط الجانبي الصغير ليتناسق مع التعديل الجديد */
 }
 
 .exam-header {
@@ -249,7 +249,7 @@ body {
 }
 
 .exam-details .value.status-ended {
-    color: #2369d1; 
+    color: #2a65bf; /* لون حالة انتهاء الاختبار */
 }
 
 /* ===== View Score Button ===== */
@@ -257,10 +257,10 @@ body {
     margin-top: 22px;
     width: 100%;
     padding: 13px; 
-    background: #2c2c2e; /* خلفية زر عرض النتيجة */
-    border: 1px solid #3a3a3c; 
+    background: #2c2c2e; 
+    border: 1px solid #2a65bf; /* تم تعديل لون الإطار للدرجة المطلوبة */
     border-radius: 10px;
-    color: #2369d1; 
+    color: #2a65bf; /* تم تعديل لون النص للدرجة المطلوبة وبنفس حجمه السابق */
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
@@ -268,7 +268,7 @@ body {
 }
 
 .view-score:active {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(42, 101, 191, 0.05); /* تأثير الضغط شفاف متناسق مع اللون الجديد */
 }
 
 .hidden {
@@ -354,7 +354,7 @@ body {
     transform: translateX(-50%);
     width: 56px;
     height: 56px;
-    background: #2369d1; 
+    background: #2a65bf; 
     border-radius: 50%;
     border: 3px solid #2a2a2e; 
     outline: 2px solid #ffffff; 
@@ -386,7 +386,7 @@ body {
 .modal-btn {
     width: 100%;
     padding: 11px;
-    background: #2369d1; 
+    background: #2a65bf; 
     color: white;
     border: none;
     border-radius: 6px;
@@ -481,7 +481,7 @@ body {
 }
 
 .filter-option.selected .filter-radio {
-    border-color: #3882ef;
+    border-color: #2a65bf;
 }
 
 .filter-radio::after {
@@ -493,7 +493,7 @@ body {
 }
 
 .filter-option.selected .filter-radio::after {
-    background: #3882ef;
+    background: #2a65bf;
 }
 
 .filter-label {
@@ -503,7 +503,7 @@ body {
 
 .filter-show-btn {
     width: 100%;
-    background: #3882ef;
+    background: #2a65bf;
     color: #ffffff;
     border: none;
     border-radius: 10px;
@@ -695,7 +695,7 @@ body {
         <div class="modal-icon">i</div>
         <div class="modal-title" id="modal-title-text">Notification</div>
         <div class="modal-text" id="modal-body-text">Exam Result is not published. Once your result is published, you will receive a notification.</div>
-        <div class="modal-btn" onclick="closeModal()">Ok</div>
+        <button class="modal-btn" onclick="closeModal()">Ok</button>
     </div>
 </div>
 
